@@ -59,28 +59,30 @@ void pathfindDijkstra(Graph graph, string start, string end) {
         closedList.DisplayNodes();
     }
     if (openList.GetLen() == 0) {
-        cout << "There is no path..." << endl;
+        cout << "There is no solution... You can't go from " << start << " to " << end<< "." << endl;
     }
 
     //afficher le resultat
-    vector<string> reversePath;
-    reversePath.push_back(end);
-    string step = end;
-    while (step != start) {
-        NodeRecord* node = closedList.GetNode(step);
-        string connection = node->connection;
-        reversePath.push_back(connection);
-        step = connection;
-    }
-
-    cout << "The faster path is : ";
-    for (int i = reversePath.size() - 1; i > -1; i--) {
-        cout << reversePath[i] << " ";
-        if (i > 0) {
-            cout << " -> ";
+    if(openList.GetLen() >0 ){
+        vector<string> reversePath;
+        reversePath.push_back(end);
+        string step = end;
+        while (step != start) {
+            NodeRecord* node = closedList.GetNode(step);
+            string connection = node->connection;
+            reversePath.push_back(connection);
+            step = connection;
         }
+
+        cout << "The faster path is : ";
+        for (int i = reversePath.size() - 1; i > -1; i--) {
+            cout << reversePath[i] << " ";
+            if (i > 0) {
+                cout << " -> ";
+            }
+        }
+        cout << endl;
     }
-    cout << endl;
 
 
 }
