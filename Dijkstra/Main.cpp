@@ -1,6 +1,5 @@
 #include "Graph.h"
-#include "Dijkstra.h"
-#include "Astar.h"
+#include "Pathfinding.h"
 #include <iostream>
 using std::cout;
 using std::cin;

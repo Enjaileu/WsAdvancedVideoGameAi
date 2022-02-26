@@ -72,7 +72,7 @@ void Graph::DisplayConnection() {
 
 void Graph::DisplayNodeNames(string fromNode) {
     for (int i = 0; i < nodeNames.size(); i++) {
-        if (nodeNames[i] != fromNode && i != nodeNames.size() && i !=0) {
+        if (nodeNames[i] != fromNode && i != nodeNames.size() && i != 0) {
             cout << "- ";
         }
         if (nodeNames[i] != fromNode) {
