@@ -139,7 +139,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Graph.cpp" />
+    <ClCompile Include="PathFindingList.cpp" />
     <ClCompile Include="Dijkstra.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Dijkstra.h" />
+    <ClInclude Include="Graph.h" />
+    <ClInclude Include="NodeUtility.h" />
+    <ClInclude Include="PathFindingList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
