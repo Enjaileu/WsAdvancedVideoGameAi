@@ -139,12 +139,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Astar.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="PathFindingList.cpp" />
     <ClCompile Include="Dijkstra.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Astar.h" />
     <ClInclude Include="Dijkstra.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="NodeUtility.h" />

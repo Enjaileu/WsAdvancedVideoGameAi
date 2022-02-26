@@ -6,13 +6,20 @@ using std::cout;
 using std::endl;
 
 NodeRecord PathfindingList::GetSmallestElement() {
-    int smallerCost = 100;
+    int smallerCost = 1000;
     NodeRecord nodeToReturn;
     for (int i = 0; i < nodes.size(); i++) {
+        //nodeToReturn = nodes with the smallest costSoFar
         int cost = nodes[i].costSoFar;
         if (cost < smallerCost) {
             smallerCost = cost;
             nodeToReturn = nodes[i];
+        }
+        //if two nodes with the same smallest costSoFar, nodeToReturn = node with the smallest distanceToGoal
+        else if (cost == smallerCost) {
+            if (nodeToReturn.distanceToGoal >= nodes[i].distanceToGoal) {
+                nodeToReturn = nodes[i];
+            }
         }
     }
     return nodeToReturn;
@@ -54,7 +61,7 @@ int PathfindingList::GetLen() { return nodes.size(); }
 
 void PathfindingList::DisplayNodes() {
     for (int i = 0; i < nodes.size(); i++) {
-        cout << nodes[i].connection << " " << nodes[i].costSoFar << " (colonne " << nodes[i].nodeName << ")" << endl;
+        cout << nodes[i].connection << " " << nodes[i].distanceToGoal << " " << nodes[i].costSoFar << " (colonne " << nodes[i].nodeName << ")" << endl;
     }
 }
 

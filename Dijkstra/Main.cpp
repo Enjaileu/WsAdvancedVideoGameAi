@@ -1,5 +1,6 @@
 #include "Graph.h"
 #include "Dijkstra.h"
+#include "Astar.h"
 #include <iostream>
 using std::cout;
 using std::cin;
@@ -61,7 +62,7 @@ int main(){
             pathfindDijkstra(graph, start, end);
         }
         else {
-            pathfindDijkstra(graph, start, end);
+            pathfindAstar(graph, start, end);
         }
 
         //try again?

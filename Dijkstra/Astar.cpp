@@ -1,13 +1,14 @@
-#include "Dijkstra.h"
+#include "Astar.h"
 #include "PathFindingList.h"
 #include <iostream>
 using namespace std;
 
-void pathfindDijkstra(Graph graph, string start, string end) {
+void pathfindAstar(Graph graph, string start, string end) {
     int it = 0;
 
     //initialiser la 1ere node
-    NodeRecord startRecord = { start, "", 0, 0 };
+    int initialDistance = graph.GetDistance(start, end);
+    NodeRecord startRecord = { start, "", initialDistance, initialDistance };
 
     //initialiser le openlist et la closedlist
     PathfindingList openList;
@@ -21,7 +22,7 @@ void pathfindDijkstra(Graph graph, string start, string end) {
 
         //La node que l'on va étudier (current node) est celle avec le plus petit cost
         NodeRecord currentNode = openList.GetSmallestElement();
-        cout << "La node etudie est " << currentNode.connection << " " << currentNode.costSoFar << " (colonne " << currentNode.nodeName << ")" << endl;
+        cout << "La node etudie est " << currentNode.connection << " " << currentNode.distanceToGoal << " " << currentNode.costSoFar << " (colonne " << currentNode.nodeName << ")" << endl;
         //si current est le goal, on a finit donc on break
         if (currentNode.nodeName == end) {
             cout << "on est arrive a " << end << endl;
@@ -35,9 +36,10 @@ void pathfindDijkstra(Graph graph, string start, string end) {
         //et on loop les connections
         for (int i = 0; i < currentConnections.size(); i++) {
             cout << "connection trouve : " << currentConnections[i]->fromNode << " -> " << currentConnections[i]->toNode << " = " << currentConnections[i]->cost << endl;
-            //on get le cost et la toNode
+            //on get le cost, la toNode, et la distance entre la toNode et le goal
             string endNodeName = currentConnections[i]->toNode;
-            int endNodeCost = currentConnections[i]->cost + currentNode.costSoFar;
+            int endNodeDistance = graph.GetDistance(endNodeName, end);
+            int endNodeCost = currentConnections[i]->cost + currentNode.costSoFar + endNodeDistance;
 
             //skip si la toNode est closed
             if (closedList.IsContain(endNodeName)) {
@@ -46,7 +48,7 @@ void pathfindDijkstra(Graph graph, string start, string end) {
             }
             //sinon on créer le nodeRecord et on l'ajoute à l'openList
             else {
-                NodeRecord node = { endNodeName, currentNode.nodeName, 0, endNodeCost };
+                NodeRecord node = { endNodeName, currentNode.nodeName, endNodeDistance, endNodeCost };
                 openList.Add(node);
             }
         }
@@ -61,12 +63,12 @@ void pathfindDijkstra(Graph graph, string start, string end) {
         closedList.DisplayNodes();
     }
     if (openList.GetLen() == 0) {
-        cout << "There is no solution... You can't go from " << start << " to " << end<< "." << endl;
+        cout << "There is no solution... You can't go from " << start << " to " << end << "." << endl;
     }
 
     //afficher le resultat
-    if(openList.GetLen() >0 ){
-        vector<string> reversePath; 
+    if (openList.GetLen() > 0) {
+        vector<string> reversePath;
         reversePath.push_back(end);
         string step = end;
         while (step != start) {
